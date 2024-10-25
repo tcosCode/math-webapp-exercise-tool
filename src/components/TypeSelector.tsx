@@ -9,7 +9,7 @@ const types: JsonType[] = [
   "TRUEFALSE",
   "CHOOSEANSWER",
   "MATCHING",
-  "FILLBLANK",
+  //"FILLBLANK",   TODO: Uncomment this line
   "PROBLEM",
 ];
 

@@ -140,16 +140,16 @@ function App() {
               />
             )}
 
-            {selectedType === "MATCHING" && (
-              <MatchingForm
-                data={jsonData as MatchingData}
+            {selectedType === "PROBLEM" && (
+              <ProblemForm
+                data={jsonData as ProblemData}
                 onChange={setJsonData}
               />
             )}
 
-            {selectedType === "PROBLEM" && (
-              <ProblemForm
-                data={jsonData as ProblemData}
+            {selectedType === "MATCHING" && (
+              <MatchingForm
+                data={jsonData as MatchingData}
                 onChange={setJsonData}
               />
             )}
