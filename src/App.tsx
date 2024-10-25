@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
-import { Copy, FileJson, Save } from 'lucide-react';
-import JsonViewer from './components/JsonViewer';
-import TypeSelector from './components/TypeSelector';
-import TrueFalseForm from './components/TrueFalseForm';
-import ChooseAnswerForm from './components/ChooseAnswerForm';
-import MatchingForm from './components/MatchingForm';
-import ProblemForm from './components/ProblemForm';
-import { JsonType, JsonData, TrueFalseData, ChooseAnswerData, MatchingData, ProblemData } from './types/json-types';
+import { useState } from "react";
+import { Copy, FileJson, Save } from "lucide-react";
+import JsonViewer from "./components/JsonViewer";
+import TypeSelector from "./components/TypeSelector";
+import TrueFalseForm from "./components/TrueFalseForm";
+import ChooseAnswerForm from "./components/ChooseAnswerForm";
+import MatchingForm from "./components/MatchingForm";
+import ProblemForm from "./components/ProblemForm";
+import {
+  JsonType,
+  JsonData,
+  TrueFalseData,
+  ChooseAnswerData,
+  MatchingData,
+  ProblemData,
+} from "./types/json-types";
 
 function App() {
   const [selectedType, setSelectedType] = useState<JsonType | null>(null);
@@ -15,42 +22,42 @@ function App() {
     type: "TRUEFALSE",
     title: "",
     texto: "",
-    incisos: []
+    incisos: [],
   });
 
   const handleTypeSelect = (type: JsonType) => {
     setSelectedType(type);
-    if (type === 'CHOOSEANSWER') {
+    if (type === "CHOOSEANSWER") {
       setJsonData({
         id: "1",
         type: "CHOOSEANSWER",
         title: "",
         texto: "",
-        incisos: []
+        incisos: [],
       });
-    } else if (type === 'TRUEFALSE') {
+    } else if (type === "TRUEFALSE") {
       setJsonData({
         id: "1",
         type: "TRUEFALSE",
         title: "",
         texto: "",
-        incisos: []
+        incisos: [],
       });
-    } else if (type === 'MATCHING') {
+    } else if (type === "MATCHING") {
       setJsonData({
         id: "1",
         type: "MATCHING",
         title: "",
         texto: "",
-        incisos: []
+        incisos: [],
       });
-    } else if (type === 'PROBLEM') {
+    } else if (type === "PROBLEM") {
       setJsonData({
         id: "1",
         type: "PROBLEM",
         title: "",
         texto: "",
-        incisos: []
+        incisos: [],
       });
     }
   };
@@ -60,9 +67,11 @@ function App() {
   };
 
   const handleSaveJson = () => {
-    const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'text/plain' });
+    const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
+      type: "text/plain",
+    });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = url;
     link.download = `${jsonData.type.toLowerCase()}_${jsonData.id}.txt`;
     document.body.appendChild(link);
@@ -77,7 +86,9 @@ function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-2">
             <FileJson className="h-6 w-6 text-indigo-600" />
-            <h1 className="text-xl font-semibold text-gray-900">JSON Generator Tool</h1>
+            <h1 className="text-xl font-semibold text-gray-900">
+              JSON Generator Tool
+            </h1>
           </div>
         </div>
       </nav>
@@ -85,33 +96,33 @@ function App() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <TypeSelector 
-              selectedType={selectedType} 
+            <TypeSelector
+              selectedType={selectedType}
               onTypeSelect={handleTypeSelect}
             />
-            
-            {selectedType === 'TRUEFALSE' && (
-              <TrueFalseForm 
+
+            {selectedType === "TRUEFALSE" && (
+              <TrueFalseForm
                 data={jsonData as TrueFalseData}
                 onChange={setJsonData}
               />
             )}
 
-            {selectedType === 'CHOOSEANSWER' && (
+            {selectedType === "CHOOSEANSWER" && (
               <ChooseAnswerForm
                 data={jsonData as ChooseAnswerData}
                 onChange={setJsonData}
               />
             )}
 
-            {selectedType === 'MATCHING' && (
+            {selectedType === "MATCHING" && (
               <MatchingForm
                 data={jsonData as MatchingData}
                 onChange={setJsonData}
               />
             )}
 
-            {selectedType === 'PROBLEM' && (
+            {selectedType === "PROBLEM" && (
               <ProblemForm
                 data={jsonData as ProblemData}
                 onChange={setJsonData}
@@ -121,7 +132,9 @@ function App() {
 
           <div className="bg-white rounded-lg shadow-sm p-6 h-fit sticky top-8">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-medium text-gray-900">Generated JSON</h2>
+              <h2 className="text-lg font-medium text-gray-900">
+                Generated JSON
+              </h2>
               <div className="flex space-x-2">
                 <button
                   onClick={handleCopyJson}

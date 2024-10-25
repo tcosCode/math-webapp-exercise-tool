@@ -1,6 +1,5 @@
-import React from 'react';
-import { Plus, Trash2 } from 'lucide-react';
-import { TrueFalseData } from '../App';
+import { Plus, Trash2 } from "lucide-react";
+import { TrueFalseData } from "../types/json-types";
 
 interface TrueFalseFormProps {
   data: TrueFalseData;
@@ -15,8 +14,8 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
         ...data.incisos,
         {
           id: String.fromCharCode(97 + data.incisos.length), // a, b, c, ...
-          exercise: '',
-          validation: 'VALIDATE_TRUE',
+          exercise: "",
+          validation: "VALIDATE_TRUE",
         },
       ],
     });
@@ -38,7 +37,10 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
     <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
       <div className="space-y-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700"
+          >
             Title
           </label>
           <input
@@ -51,7 +53,10 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
         </div>
 
         <div>
-          <label htmlFor="texto" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="texto"
+            className="block text-sm font-medium text-gray-700"
+          >
             Instructions Text
           </label>
           <input
@@ -91,20 +96,28 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Statement</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Statement
+              </label>
               <textarea
                 value={inciso.exercise}
-                onChange={(e) => updateInciso(index, 'exercise', e.target.value)}
+                onChange={(e) =>
+                  updateInciso(index, "exercise", e.target.value)
+                }
                 rows={2}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Validation</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Validation
+              </label>
               <select
                 value={inciso.validation}
-                onChange={(e) => updateInciso(index, 'validation', e.target.value)}
+                onChange={(e) =>
+                  updateInciso(index, "validation", e.target.value)
+                }
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               >
                 <option value="VALIDATE_TRUE">True</option>

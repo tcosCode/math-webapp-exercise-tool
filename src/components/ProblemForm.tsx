@@ -1,6 +1,5 @@
-import React from 'react';
-import { Plus, Trash2 } from 'lucide-react';
-import { ProblemData } from '../types/json-types';
+import { Plus, Trash2 } from "lucide-react";
+import { ProblemData } from "../types/json-types";
 
 interface ProblemFormProps {
   data: ProblemData;
@@ -15,8 +14,8 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
         ...data.incisos,
         {
           id: String.fromCharCode(97 + data.incisos.length), // a, b, c, ...
-          exercise: '',
-          answer: '',
+          exercise: "",
+          answer: "",
         },
       ],
     });
@@ -28,7 +27,11 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
     onChange({ ...data, incisos: newIncisos });
   };
 
-  const updateInciso = (index: number, field: 'exercise' | 'answer', value: string) => {
+  const updateInciso = (
+    index: number,
+    field: "exercise" | "answer",
+    value: string
+  ) => {
     const newIncisos = [...data.incisos];
     newIncisos[index] = { ...newIncisos[index], [field]: value };
     onChange({ ...data, incisos: newIncisos });
@@ -38,7 +41,10 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
     <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
       <div className="space-y-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700"
+          >
             Title
           </label>
           <input
@@ -51,7 +57,10 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
         </div>
 
         <div>
-          <label htmlFor="texto" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="texto"
+            className="block text-sm font-medium text-gray-700"
+          >
             Problem Description
           </label>
           <textarea
@@ -92,21 +101,27 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Question</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Question
+              </label>
               <textarea
                 value={inciso.exercise}
-                onChange={(e) => updateInciso(index, 'exercise', e.target.value)}
+                onChange={(e) =>
+                  updateInciso(index, "exercise", e.target.value)
+                }
                 rows={2}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Answer</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Answer
+              </label>
               <input
                 type="text"
                 value={inciso.answer}
-                onChange={(e) => updateInciso(index, 'answer', e.target.value)}
+                onChange={(e) => updateInciso(index, "answer", e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>

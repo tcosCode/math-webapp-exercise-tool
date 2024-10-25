@@ -1,15 +1,24 @@
-export type JsonType = 'TRUEFALSE' | 'CHOOSEANSWER' | 'MATCHING' | 'FILLBLANK' | 'PROBLEM';
-export type Validation = 'VALIDATE_TRUE' | 'VALIDATE_FALSE' | 'CORRECT' | 'INCORRECT';
+export type JsonType =
+  | "TRUEFALSE"
+  | "CHOOSEANSWER"
+  | "MATCHING"
+  | "FILLBLANK"
+  | "PROBLEM";
+export type Validation =
+  | "VALIDATE_TRUE"
+  | "VALIDATE_FALSE"
+  | "CORRECT"
+  | "INCORRECT";
 
 export interface TrueFalseInciso {
   id: string;
   exercise: string;
-  validation: 'VALIDATE_TRUE' | 'VALIDATE_FALSE';
+  validation: "VALIDATE_TRUE" | "VALIDATE_FALSE";
 }
 
 export interface TrueFalseData {
   id: string;
-  type: 'TRUEFALSE';
+  type: "TRUEFALSE";
   title: string;
   texto: string;
   incisos: TrueFalseInciso[];
@@ -17,7 +26,7 @@ export interface TrueFalseData {
 
 export interface ChooseAnswerOption {
   text: string;
-  validation: 'CORRECT' | 'INCORRECT';
+  validation: "CORRECT" | "INCORRECT";
 }
 
 export interface ChooseAnswerInciso {
@@ -28,7 +37,7 @@ export interface ChooseAnswerInciso {
 
 export interface ChooseAnswerData {
   id: string;
-  type: 'CHOOSEANSWER';
+  type: "CHOOSEANSWER";
   title: string;
   texto: string;
   incisos: ChooseAnswerInciso[];
@@ -41,7 +50,7 @@ export interface MatchingInciso {
 
 export interface MatchingData {
   id: string;
-  type: 'MATCHING';
+  type: "MATCHING";
   title: string;
   texto: string;
   incisos: MatchingInciso[];
@@ -55,10 +64,14 @@ export interface ProblemInciso {
 
 export interface ProblemData {
   id: string;
-  type: 'PROBLEM';
+  type: "PROBLEM";
   title: string;
   texto: string;
   incisos: ProblemInciso[];
 }
 
-export type JsonData = TrueFalseData | ChooseAnswerData | MatchingData | ProblemData;
+export type JsonData =
+  | TrueFalseData
+  | ChooseAnswerData
+  | MatchingData
+  | ProblemData;

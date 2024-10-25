@@ -1,6 +1,5 @@
-import React from 'react';
-import { Plus, Trash2 } from 'lucide-react';
-import { MatchingData, MatchingInciso } from '../types/json-types';
+import { Plus, Trash2 } from "lucide-react";
+import { MatchingData, MatchingInciso } from "../types/json-types";
 
 interface MatchingFormProps {
   data: MatchingData;
@@ -9,17 +8,17 @@ interface MatchingFormProps {
 
 function MatchingForm({ data, onChange }: MatchingFormProps) {
   const addPair = () => {
-    const nextPairId = Math.max(0, ...data.incisos.map(i => i.pairId)) + 1;
+    const nextPairId = Math.max(0, ...data.incisos.map((i) => i.pairId)) + 1;
     onChange({
       ...data,
       incisos: [
         ...data.incisos,
         {
-          text: '<strong>Pregunta:</strong> ',
+          text: "<strong>Pregunta:</strong> ",
           pairId: nextPairId,
         },
         {
-          text: 'Respuesta: ',
+          text: "Respuesta: ",
           pairId: nextPairId,
         },
       ],
@@ -27,7 +26,9 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
   };
 
   const removePair = (pairId: number) => {
-    const newIncisos = data.incisos.filter(inciso => inciso.pairId !== pairId);
+    const newIncisos = data.incisos.filter(
+      (inciso) => inciso.pairId !== pairId
+    );
     onChange({ ...data, incisos: newIncisos });
   };
 
@@ -39,12 +40,12 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
 
   const getPairs = () => {
     const pairs: { question: MatchingInciso; answer: MatchingInciso }[] = [];
-    const pairIds = new Set(data.incisos.map(i => i.pairId));
-    
-    pairIds.forEach(pairId => {
-      const items = data.incisos.filter(i => i.pairId === pairId);
-      const question = items.find(i => i.text.includes('Pregunta'));
-      const answer = items.find(i => i.text.includes('Respuesta'));
+    const pairIds = new Set(data.incisos.map((i) => i.pairId));
+
+    pairIds.forEach((pairId) => {
+      const items = data.incisos.filter((i) => i.pairId === pairId);
+      const question = items.find((i) => i.text.includes("Pregunta"));
+      const answer = items.find((i) => i.text.includes("Respuesta"));
       if (question && answer) {
         pairs.push({ question, answer });
       }
@@ -57,7 +58,10 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
     <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
       <div className="space-y-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700"
+          >
             Title
           </label>
           <input
@@ -70,7 +74,10 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
         </div>
 
         <div>
-          <label htmlFor="texto" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="texto"
+            className="block text-sm font-medium text-gray-700"
+          >
             Instructions Text
           </label>
           <input
@@ -96,7 +103,10 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
         </div>
 
         {getPairs().map(({ question, answer }, index) => (
-          <div key={question.pairId} className="space-y-3 p-4 bg-gray-50 rounded-lg">
+          <div
+            key={question.pairId}
+            className="space-y-3 p-4 bg-gray-50 rounded-lg"
+          >
             <div className="flex justify-between items-start">
               <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-indigo-100 text-indigo-800 text-sm font-medium">
                 {index + 1}
@@ -110,10 +120,14 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Question</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Question
+              </label>
               <textarea
                 value={question.text}
-                onChange={(e) => updateInciso(data.incisos.indexOf(question), e.target.value)}
+                onChange={(e) =>
+                  updateInciso(data.incisos.indexOf(question), e.target.value)
+                }
                 rows={2}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-mono"
                 placeholder="<strong>Pregunta:</strong> Your question here"
@@ -121,10 +135,14 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Answer</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Answer
+              </label>
               <textarea
                 value={answer.text}
-                onChange={(e) => updateInciso(data.incisos.indexOf(answer), e.target.value)}
+                onChange={(e) =>
+                  updateInciso(data.incisos.indexOf(answer), e.target.value)
+                }
                 rows={2}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-mono"
                 placeholder="Respuesta: Your answer here"

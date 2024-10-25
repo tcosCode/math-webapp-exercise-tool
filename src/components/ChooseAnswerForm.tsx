@@ -1,6 +1,9 @@
-import React from 'react';
-import { Plus, Trash2 } from 'lucide-react';
-import { ChooseAnswerData, ChooseAnswerInciso, ChooseAnswerOption } from '../types/json-types';
+import { Plus, Trash2 } from "lucide-react";
+import {
+  ChooseAnswerData,
+  ChooseAnswerInciso,
+  ChooseAnswerOption,
+} from "../types/json-types";
 
 interface ChooseAnswerFormProps {
   data: ChooseAnswerData;
@@ -15,11 +18,11 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
         ...data.incisos,
         {
           id: String.fromCharCode(97 + data.incisos.length), // a, b, c, ...
-          exercise: '',
+          exercise: "",
           answer: [
-            { text: '', validation: 'INCORRECT' },
-            { text: '', validation: 'INCORRECT' },
-            { text: '', validation: 'CORRECT' },
+            { text: "", validation: "INCORRECT" },
+            { text: "", validation: "INCORRECT" },
+            { text: "", validation: "CORRECT" },
           ],
         },
       ],
@@ -32,17 +35,29 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
     onChange({ ...data, incisos: newIncisos });
   };
 
-  const updateInciso = (index: number, field: keyof ChooseAnswerInciso, value: string | ChooseAnswerOption[]) => {
+  const updateInciso = (
+    index: number,
+    field: keyof ChooseAnswerInciso,
+    value: string | ChooseAnswerOption[]
+  ) => {
     const newIncisos = [...data.incisos];
     newIncisos[index] = { ...newIncisos[index], [field]: value };
     onChange({ ...data, incisos: newIncisos });
   };
 
-  const updateAnswer = (incisoIndex: number, optionIndex: number, field: keyof ChooseAnswerOption, value: string) => {
+  const updateAnswer = (
+    incisoIndex: number,
+    optionIndex: number,
+    field: keyof ChooseAnswerOption,
+    value: string
+  ) => {
     const newIncisos = [...data.incisos];
     const newAnswers = [...newIncisos[incisoIndex].answer];
     newAnswers[optionIndex] = { ...newAnswers[optionIndex], [field]: value };
-    newIncisos[incisoIndex] = { ...newIncisos[incisoIndex], answer: newAnswers };
+    newIncisos[incisoIndex] = {
+      ...newIncisos[incisoIndex],
+      answer: newAnswers,
+    };
     onChange({ ...data, incisos: newIncisos });
   };
 
@@ -50,7 +65,10 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
     <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
       <div className="space-y-4">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700"
+          >
             Title
           </label>
           <input
@@ -63,7 +81,10 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
         </div>
 
         <div>
-          <label htmlFor="texto" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="texto"
+            className="block text-sm font-medium text-gray-700"
+          >
             Instructions Text
           </label>
           <input
@@ -103,29 +124,49 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">Question</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Question
+              </label>
               <textarea
                 value={inciso.exercise}
-                onChange={(e) => updateInciso(incisoIndex, 'exercise', e.target.value)}
+                onChange={(e) =>
+                  updateInciso(incisoIndex, "exercise", e.target.value)
+                }
                 rows={2}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
 
             <div className="space-y-3">
-              <label className="block text-sm font-medium text-gray-700">Answer Options</label>
+              <label className="block text-sm font-medium text-gray-700">
+                Answer Options
+              </label>
               {inciso.answer.map((option, optionIndex) => (
                 <div key={optionIndex} className="flex gap-2">
                   <input
                     type="text"
                     value={option.text}
-                    onChange={(e) => updateAnswer(incisoIndex, optionIndex, 'text', e.target.value)}
+                    onChange={(e) =>
+                      updateAnswer(
+                        incisoIndex,
+                        optionIndex,
+                        "text",
+                        e.target.value
+                      )
+                    }
                     className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     placeholder={`Option ${optionIndex + 1}`}
                   />
                   <select
                     value={option.validation}
-                    onChange={(e) => updateAnswer(incisoIndex, optionIndex, 'validation', e.target.value)}
+                    onChange={(e) =>
+                      updateAnswer(
+                        incisoIndex,
+                        optionIndex,
+                        "validation",
+                        e.target.value
+                      )
+                    }
                     className="w-32 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   >
                     <option value="CORRECT">Correct</option>
