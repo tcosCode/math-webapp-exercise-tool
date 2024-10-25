@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Copy, FileJson, Save } from "lucide-react";
+import { Copy, FileJson, Save, Share2 } from "lucide-react";
 import JsonViewer from "./components/JsonViewer";
 import TypeSelector from "./components/TypeSelector";
 import TrueFalseForm from "./components/TrueFalseForm";
@@ -80,6 +80,31 @@ function App() {
     URL.revokeObjectURL(url);
   };
 
+  const handleShareJson = () => {
+    const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
+      type: "text/plain",
+    });
+    const file = new File(
+      [blob],
+      `${jsonData.type.toLowerCase()}_${jsonData.id}.txt`,
+      {
+        type: "text/plain",
+      }
+    );
+    navigator
+      .share({
+        title: "Compartir JSON",
+        text: "Aquí tienes el JSON convertido a archivo de texto:",
+        files: [file],
+      })
+      .then(() => {
+        console.log("Compartido con éxito");
+      })
+      .catch((error) => {
+        console.error("Error al compartir:", error);
+      });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="bg-white shadow-sm">
@@ -149,6 +174,13 @@ function App() {
                 >
                   <Save className="h-4 w-4 mr-1.5" />
                   Save
+                </button>
+                <button
+                  onClick={handleShareJson}
+                  className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  <Share2 className="h-4 w-4 mr-1.5" />
+                  Share
                 </button>
               </div>
             </div>
