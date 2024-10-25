@@ -69,7 +69,7 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
             htmlFor="title"
             className="block text-sm font-medium text-gray-700"
           >
-            Title
+            Título
           </label>
           <input
             type="text"
@@ -85,7 +85,7 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
             htmlFor="texto"
             className="block text-sm font-medium text-gray-700"
           >
-            Instructions Text
+            Enunciado del Ejercicio
           </label>
           <input
             type="text"
@@ -99,13 +99,13 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
 
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-medium text-gray-900">Questions</h3>
+          <h3 className="text-lg font-medium text-gray-900">Incisos</h3>
           <button
             onClick={addInciso}
             className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <Plus className="h-4 w-4 mr-1.5" />
-            Add Question
+            Añadir Inciso
           </button>
         </div>
 
@@ -125,7 +125,7 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Question
+                Pregunta
               </label>
               <textarea
                 value={inciso.exercise}
@@ -139,7 +139,7 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
 
             <div className="space-y-3">
               <label className="block text-sm font-medium text-gray-700">
-                Answer Options
+                Respuestas
               </label>
               {inciso.answer.map((option, optionIndex) => (
                 <div key={optionIndex} className="flex gap-2">
@@ -169,8 +169,8 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
                     }
                     className="w-32 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   >
-                    <option value="CORRECT">Correct</option>
-                    <option value="INCORRECT">Incorrect</option>
+                    <option value="CORRECT">Correcta</option>
+                    <option value="INCORRECT">Incorrecta</option>
                   </select>
                 </div>
               ))}

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Copy, FileJson, Save, Share2 } from "lucide-react";
+//import { Copy, FileJson, Save, Share2 } from "lucide-react";
+import { FileJson, Share2 } from "lucide-react";
 import JsonViewer from "./components/JsonViewer";
 import TypeSelector from "./components/TypeSelector";
 import TrueFalseForm from "./components/TrueFalseForm";
@@ -62,23 +63,23 @@ function App() {
     }
   };
 
-  const handleCopyJson = () => {
-    navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
-  };
+  // // const handleCopyJson = () => {
+  // //   navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
+  // // };
 
-  const handleSaveJson = () => {
-    const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
-      type: "text/plain",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${jsonData.type.toLowerCase()}_${jsonData.id}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
+  // // const handleSaveJson = () => {
+  // //   const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
+  // //     type: "text/plain",
+  // //   });
+  //   const url = URL.createObjectURL(blob);
+  //   const link = document.createElement("a");
+  //   link.href = url;
+  //   link.download = `${jsonData.type.toLowerCase()}_${jsonData.id}.txt`;
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  //   URL.revokeObjectURL(url);
+  // };
 
   const handleShareJson = () => {
     const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
@@ -157,24 +158,22 @@ function App() {
 
           <div className="bg-white rounded-lg shadow-sm p-6 h-fit sticky top-8">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-medium text-gray-900">
-                Generated JSON
-              </h2>
+              <h2 className="text-lg font-medium text-gray-900">JSON</h2>
               <div className="flex space-x-2">
-                <button
+                {/* <button
                   onClick={handleCopyJson}
                   className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   <Copy className="h-4 w-4 mr-1.5" />
                   Copy
-                </button>
-                <button
+                </button> */}
+                {/* <button
                   onClick={handleSaveJson}
                   className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                 >
                   <Save className="h-4 w-4 mr-1.5" />
                   Save
-                </button>
+                </button> */}
                 <button
                   onClick={handleShareJson}
                   className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

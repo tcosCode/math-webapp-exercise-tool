@@ -45,7 +45,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
             htmlFor="title"
             className="block text-sm font-medium text-gray-700"
           >
-            Title
+            Título
           </label>
           <input
             type="text"
@@ -61,7 +61,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
             htmlFor="texto"
             className="block text-sm font-medium text-gray-700"
           >
-            Problem Description
+            Enunciado del Problema
           </label>
           <textarea
             id="texto"
@@ -76,13 +76,13 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
 
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-medium text-gray-900">Questions</h3>
+          <h3 className="text-lg font-medium text-gray-900">Incisos</h3>
           <button
             onClick={addInciso}
             className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <Plus className="h-4 w-4 mr-1.5" />
-            Add Question
+            Añadir Incisos
           </button>
         </div>
 
@@ -102,7 +102,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Question
+                Pregunta
               </label>
               <textarea
                 value={inciso.exercise}
@@ -116,7 +116,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Answer
+                Respuesta
               </label>
               <input
                 type="text"

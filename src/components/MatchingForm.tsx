@@ -62,7 +62,7 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
             htmlFor="title"
             className="block text-sm font-medium text-gray-700"
           >
-            Title
+            Título
           </label>
           <input
             type="text"
@@ -78,7 +78,7 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
             htmlFor="texto"
             className="block text-sm font-medium text-gray-700"
           >
-            Instructions Text
+            Enunciado del Ejercicio
           </label>
           <input
             type="text"
@@ -92,13 +92,13 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
 
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-medium text-gray-900">Matching Pairs</h3>
+          <h3 className="text-lg font-medium text-gray-900">Parejas</h3>
           <button
             onClick={addPair}
             className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <Plus className="h-4 w-4 mr-1.5" />
-            Add Pair
+            Añadir Pareja
           </button>
         </div>
 
@@ -121,7 +121,7 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Question
+                Pregunta
               </label>
               <textarea
                 value={question.text}
@@ -136,7 +136,7 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Answer
+                Respuesta
               </label>
               <textarea
                 value={answer.text}

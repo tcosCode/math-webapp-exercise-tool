@@ -17,7 +17,7 @@ function TypeSelector({ selectedType, onTypeSelect }: TypeSelectorProps) {
   return (
     <div className="bg-white rounded-lg shadow-sm p-6">
       <h2 className="text-lg font-medium text-gray-900 mb-4">
-        Select JSON Type
+        Selecciona el tipo de Ejercicio
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {types.map((type) => (
