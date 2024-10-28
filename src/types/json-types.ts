@@ -70,8 +70,29 @@ export interface ProblemData {
   incisos: ProblemInciso[];
 }
 
+export interface FillBlankOption {
+  id: string;
+  text: string;
+  position: string;
+}
+
+export interface FillBlankInciso {
+  id: string;
+  sentence: string[];
+  options: FillBlankOption[];
+}
+
+export interface FillBlankData {
+  id: string;
+  type: "FILLBLANK";
+  title: string;
+  texto: string;
+  incisos: FillBlankInciso[];
+}
+
 export type JsonData =
   | TrueFalseData
   | ChooseAnswerData
   | MatchingData
-  | ProblemData;
+  | ProblemData
+  | FillBlankData;
