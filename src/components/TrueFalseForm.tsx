@@ -24,7 +24,12 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
   const removeInciso = (index: number) => {
     const newIncisos = [...data.incisos];
     newIncisos.splice(index, 1);
-    onChange({ ...data, incisos: newIncisos });
+    // Reorder remaining incisos
+    const reorderedIncisos = newIncisos.map((inciso, idx) => ({
+      ...inciso,
+      id: String.fromCharCode(97 + idx), // Reassign a, b, c, ...
+    }));
+    onChange({ ...data, incisos: reorderedIncisos });
   };
 
   const updateInciso = (index: number, field: string, value: string) => {

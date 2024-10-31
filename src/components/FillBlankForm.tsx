@@ -11,39 +11,6 @@ interface FillBlankFormProps {
 }
 
 function FillBlankForm({ data, onChange }: FillBlankFormProps) {
-  const reorderBlanks = (sentence: string[]): string[] => {
-    let blankCounter = 1;
-    return sentence.map((part) => {
-      if (part.startsWith("blank")) {
-        const newBlank = `blank${blankCounter}`;
-        blankCounter++;
-        return newBlank;
-      }
-      return part;
-    });
-  };
-
-  const reorderOptions = (
-    incisoId: string,
-    options: FillBlankOption[]
-  ): FillBlankOption[] => {
-    return options.map((option, index) => ({
-      ...option,
-      id: `${incisoId}_option${index + 1}`,
-    }));
-  };
-
-  const updateBlankReferences = (
-    options: FillBlankOption[],
-    oldBlank: string,
-    newBlank: string
-  ): FillBlankOption[] => {
-    return options.map((option) => ({
-      ...option,
-      position: option.position === oldBlank ? newBlank : option.position,
-    }));
-  };
-
   const addInciso = () => {
     const incisoId = String.fromCharCode(97 + data.incisos.length); // a, b, c, ...
     onChange({
@@ -70,7 +37,19 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
   const removeInciso = (index: number) => {
     const newIncisos = [...data.incisos];
     newIncisos.splice(index, 1);
-    onChange({ ...data, incisos: newIncisos });
+    // Reorder remaining incisos and their options
+    const reorderedIncisos = newIncisos.map((inciso, idx) => {
+      const newId = String.fromCharCode(97 + idx); // Reassign a, b, c, ...
+      return {
+        ...inciso,
+        id: newId,
+        options: inciso.options.map((option, optIdx) => ({
+          ...option,
+          id: `${newId}_option${optIdx + 1}`,
+        })),
+      };
+    });
+    onChange({ ...data, incisos: reorderedIncisos });
   };
 
   const updateSentencePart = (
@@ -172,6 +151,39 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
       newIncisos[incisoIndex].options
     );
     onChange({ ...data, incisos: newIncisos });
+  };
+
+  const reorderBlanks = (sentence: string[]): string[] => {
+    let blankCounter = 1;
+    return sentence.map((part) => {
+      if (part.startsWith("blank")) {
+        const newBlank = `blank${blankCounter}`;
+        blankCounter++;
+        return newBlank;
+      }
+      return part;
+    });
+  };
+
+  const reorderOptions = (
+    incisoId: string,
+    options: FillBlankOption[]
+  ): FillBlankOption[] => {
+    return options.map((option, index) => ({
+      ...option,
+      id: `${incisoId}_option${index + 1}`,
+    }));
+  };
+
+  const updateBlankReferences = (
+    options: FillBlankOption[],
+    oldBlank: string,
+    newBlank: string
+  ): FillBlankOption[] => {
+    return options.map((option) => ({
+      ...option,
+      position: option.position === oldBlank ? newBlank : option.position,
+    }));
   };
 
   const getAvailableBlanks = (inciso: FillBlankInciso) => {
