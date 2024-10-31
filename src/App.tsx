@@ -23,7 +23,7 @@ function App() {
   const [selectedType, setSelectedType] = useState<JsonType | null>(null);
   const [jsonData, setJsonData] = useState<JsonData>({
     id: "1",
-    type: "TRUEFALSE",
+    type: "TrueFalse",
     title: "",
     texto: "",
     incisos: [],
@@ -31,42 +31,42 @@ function App() {
 
   const handleTypeSelect = (type: JsonType) => {
     setSelectedType(type);
-    if (type === "CHOOSEANSWER") {
+    if (type === "ChooseAnswer") {
       setJsonData({
         id: "1",
-        type: "CHOOSEANSWER",
+        type: "ChooseAnswer",
         title: "",
         texto: "",
         incisos: [],
       });
-    } else if (type === "TRUEFALSE") {
+    } else if (type === "TrueFalse") {
       setJsonData({
         id: "1",
-        type: "TRUEFALSE",
+        type: "TrueFalse",
         title: "",
         texto: "",
         incisos: [],
       });
-    } else if (type === "MATCHING") {
+    } else if (type === "Matching") {
       setJsonData({
         id: "1",
-        type: "MATCHING",
+        type: "Matching",
         title: "",
         texto: "",
         incisos: [],
       });
-    } else if (type === "PROBLEM") {
+    } else if (type === "Problem") {
       setJsonData({
         id: "1",
-        type: "PROBLEM",
+        type: "Problem",
         title: "",
         texto: "",
         incisos: [],
       });
-    } else if (type === "FILLBLANK") {
+    } else if (type === "FillBlank") {
       setJsonData({
         id: "1",
-        type: "FILLBLANK",
+        type: "FillBlank",
         title: "",
         texto: "",
         incisos: [],
@@ -138,35 +138,35 @@ function App() {
               onTypeSelect={handleTypeSelect}
             />
 
-            {selectedType === "TRUEFALSE" && (
+            {selectedType === "TrueFalse" && (
               <TrueFalseForm
                 data={jsonData as TrueFalseData}
                 onChange={setJsonData}
               />
             )}
 
-            {selectedType === "CHOOSEANSWER" && (
+            {selectedType === "ChooseAnswer" && (
               <ChooseAnswerForm
                 data={jsonData as ChooseAnswerData}
                 onChange={setJsonData}
               />
             )}
 
-            {selectedType === "PROBLEM" && (
+            {selectedType === "Problem" && (
               <ProblemForm
                 data={jsonData as ProblemData}
                 onChange={setJsonData}
               />
             )}
 
-            {selectedType === "MATCHING" && (
+            {selectedType === "Matching" && (
               <MatchingForm
                 data={jsonData as MatchingData}
                 onChange={setJsonData}
               />
             )}
 
-            {selectedType === "FILLBLANK" && (
+            {selectedType === "FillBlank" && (
               <FillBlankForm
                 data={jsonData as FillBlankData}
                 onChange={setJsonData}

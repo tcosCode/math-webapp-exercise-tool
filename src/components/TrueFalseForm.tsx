@@ -15,7 +15,7 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
         {
           id: String.fromCharCode(97 + data.incisos.length), // a, b, c, ...
           exercise: "",
-          validation: "VALIDATE_TRUE",
+          validation: "true",
         },
       ],
     });
@@ -120,8 +120,8 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
                 }
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               >
-                <option value="VALIDATE_TRUE">Verdadero</option>
-                <option value="VALIDATE_FALSE">Falso</option>
+                <option value="true">Verdadero</option>
+                <option value="false">Falso</option>
               </select>
             </div>
           </div>

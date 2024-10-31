@@ -20,9 +20,9 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
           id: String.fromCharCode(97 + data.incisos.length), // a, b, c, ...
           exercise: "",
           answer: [
-            { text: "", validation: "INCORRECT" },
-            { text: "", validation: "INCORRECT" },
-            { text: "", validation: "CORRECT" },
+            { text: "", validation: "incorrect" },
+            { text: "", validation: "incorrect" },
+            { text: "", validation: "incorrect" },
           ],
         },
       ],
@@ -169,8 +169,8 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
                     }
                     className="w-32 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                   >
-                    <option value="CORRECT">Correcta</option>
-                    <option value="INCORRECT">Incorrecta</option>
+                    <option value="correct">Correcta</option>
+                    <option value="incorrect">Incorrecta</option>
                   </select>
                 </div>
               ))}

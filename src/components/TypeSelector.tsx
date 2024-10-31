@@ -6,11 +6,11 @@ interface TypeSelectorProps {
 }
 
 const types: JsonType[] = [
-  "TRUEFALSE",
-  "CHOOSEANSWER",
-  "MATCHING",
-  "FILLBLANK",
-  "PROBLEM",
+  "TrueFalse",
+  "ChooseAnswer",
+  "Matching",
+  "FillBlank",
+  "Problem",
 ];
 
 function TypeSelector({ selectedType, onTypeSelect }: TypeSelectorProps) {
@@ -31,7 +31,7 @@ function TypeSelector({ selectedType, onTypeSelect }: TypeSelectorProps) {
                   : "bg-gray-100 text-gray-900 hover:bg-gray-200"
               }`}
           >
-            {type}
+            {type.toUpperCase()}
           </button>
         ))}
       </div>
