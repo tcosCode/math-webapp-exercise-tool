@@ -7,21 +7,31 @@ interface MatchingFormProps {
 }
 
 function MatchingForm({ data, onChange }: MatchingFormProps) {
-  const addPair = () => {
+  const addPair = (withMatch = true) => {
     const nextPairId = Math.max(0, ...data.incisos.map((i) => i.pairId)) + 1;
+    const newIncisos = withMatch
+      ? [
+          ...data.incisos,
+          {
+            text: "<strong>Pregunta:</strong> " + "",
+            pairId: nextPairId,
+          },
+          {
+            text: "Respuesta: " + "",
+            pairId: nextPairId,
+          },
+        ]
+      : [
+          ...data.incisos,
+          {
+            text: "Respuesta: " + "",
+            pairId: nextPairId,
+          },
+        ];
+
     onChange({
       ...data,
-      incisos: [
-        ...data.incisos,
-        {
-          text: "<strong>Pregunta:</strong> ",
-          pairId: nextPairId,
-        },
-        {
-          text: "Respuesta: ",
-          pairId: nextPairId,
-        },
-      ],
+      incisos: newIncisos,
     });
   };
 
@@ -34,24 +44,44 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
 
   const updateInciso = (index: number, text: string) => {
     const newIncisos = [...data.incisos];
-    newIncisos[index] = { ...newIncisos[index], text };
+    const isQuestion = newIncisos[index].text.includes("Pregunta");
+    const prefix = isQuestion ? "<strong>Pregunta:</strong> " : "Respuesta: ";
+    newIncisos[index] = { ...newIncisos[index], text: prefix + text };
     onChange({ ...data, incisos: newIncisos });
   };
 
   const getPairs = () => {
     const pairs: { question: MatchingInciso; answer: MatchingInciso }[] = [];
-    const pairIds = new Set(data.incisos.map((i) => i.pairId));
+    const questions = data.incisos.filter((i) => i.text.includes("Pregunta"));
+    const answers = data.incisos.filter((i) => i.text.includes("Respuesta"));
 
-    pairIds.forEach((pairId) => {
-      const items = data.incisos.filter((i) => i.pairId === pairId);
-      const question = items.find((i) => i.text.includes("Pregunta"));
-      const answer = items.find((i) => i.text.includes("Respuesta"));
-      if (question && answer) {
-        pairs.push({ question, answer });
+    // First, create pairs for matching questions and answers
+    questions.forEach((question) => {
+      const matchingAnswer = answers.find((a) => a.pairId === question.pairId);
+      if (matchingAnswer) {
+        pairs.push({ question, answer: matchingAnswer });
       }
     });
 
+    // Then add remaining answers as pairs without questions
+    const unmatchedAnswers = answers.filter(
+      (answer) => !questions.some((q) => q.pairId === answer.pairId)
+    );
+    unmatchedAnswers.forEach((answer) => {
+      pairs.push({
+        question: { text: "", pairId: answer.pairId },
+        answer,
+      });
+    });
+
     return pairs.sort((a, b) => a.question.pairId - b.question.pairId);
+  };
+
+  const getInputValue = (text: string) => {
+    if (text.includes("Pregunta")) {
+      return text.replace("<strong>Pregunta:</strong> ", "");
+    }
+    return text.replace("Respuesta: ", "");
   };
 
   return (
@@ -93,18 +123,27 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-medium text-gray-900">Parejas</h3>
-          <button
-            onClick={addPair}
-            className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            <Plus className="h-4 w-4 mr-1.5" />
-            Añadir Pareja
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => addPair(true)}
+              className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              <Plus className="h-4 w-4 mr-1.5" />
+              Añadir Pareja
+            </button>
+            <button
+              onClick={() => addPair(false)}
+              className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            >
+              <Plus className="h-4 w-4 mr-1.5" />
+              Añadir Respuesta Extra
+            </button>
+          </div>
         </div>
 
         {getPairs().map(({ question, answer }, index) => (
           <div
-            key={question.pairId}
+            key={answer.pairId}
             className="space-y-3 p-4 bg-gray-50 rounded-lg"
           >
             <div className="flex justify-between items-start">
@@ -112,40 +151,42 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
                 {index + 1}
               </span>
               <button
-                onClick={() => removePair(question.pairId)}
+                onClick={() => removePair(answer.pairId)}
                 className="text-gray-400 hover:text-red-500"
               >
                 <Trash2 className="h-5 w-5" />
               </button>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Pregunta
-              </label>
-              <textarea
-                value={question.text}
-                onChange={(e) =>
-                  updateInciso(data.incisos.indexOf(question), e.target.value)
-                }
-                rows={2}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-mono"
-                placeholder="<strong>Pregunta:</strong> Your question here"
-              />
-            </div>
+            {question.text && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Pregunta
+                </label>
+                <textarea
+                  value={getInputValue(question.text)}
+                  onChange={(e) =>
+                    updateInciso(data.incisos.indexOf(question), e.target.value)
+                  }
+                  rows={2}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  placeholder="Escribe tu pregunta aquí"
+                />
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Respuesta
               </label>
               <textarea
-                value={answer.text}
+                value={getInputValue(answer.text)}
                 onChange={(e) =>
                   updateInciso(data.incisos.indexOf(answer), e.target.value)
                 }
                 rows={2}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-mono"
-                placeholder="Respuesta: Your answer here"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                placeholder="Escribe la respuesta aquí"
               />
             </div>
           </div>
