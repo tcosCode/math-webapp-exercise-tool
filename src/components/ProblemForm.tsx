@@ -1,5 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
 import { ProblemData } from "../types/json-types";
+import VoiceInput from "./VoiceInput";
 
 interface ProblemFormProps {
   data: ProblemData;
@@ -52,11 +53,9 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
           >
             Título
           </label>
-          <input
-            type="text"
-            id="title"
+          <VoiceInput
             value={data.title}
-            onChange={(e) => onChange({ ...data, title: e.target.value })}
+            onChange={(value) => onChange({ ...data, title: value })}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           />
         </div>
@@ -68,11 +67,9 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
           >
             Enunciado del Problema
           </label>
-          <textarea
-            id="texto"
+          <VoiceInput
             value={data.texto}
-            onChange={(e) => onChange({ ...data, texto: e.target.value })}
-            rows={6}
+            onChange={(value) => onChange({ ...data, texto: value })}
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-mono"
             placeholder="You can use HTML tags for formatting"
           />
@@ -109,12 +106,9 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
               <label className="block text-sm font-medium text-gray-700">
                 Pregunta
               </label>
-              <textarea
+              <VoiceInput
                 value={inciso.exercise}
-                onChange={(e) =>
-                  updateInciso(index, "exercise", e.target.value)
-                }
-                rows={2}
+                onChange={(value) => updateInciso(index, "exercise", value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
@@ -123,10 +117,9 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
               <label className="block text-sm font-medium text-gray-700">
                 Respuesta
               </label>
-              <input
-                type="text"
+              <VoiceInput
                 value={inciso.answer}
-                onChange={(e) => updateInciso(index, "answer", e.target.value)}
+                onChange={(value) => updateInciso(index, "answer", value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
