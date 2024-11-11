@@ -1,5 +1,7 @@
 import { Plus, Trash2 } from "lucide-react";
 import { ProblemData } from "../types/json-types";
+import VoiceInput from "./VoiceInput";
+import { mathReplacements } from "../utils/replacements";
 
 interface ProblemFormProps {
   data: ProblemData;
@@ -52,12 +54,12 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
           >
             Título
           </label>
-          <input
-            type="text"
-            id="title"
+          <VoiceInput
             value={data.title}
-            onChange={(e) => onChange({ ...data, title: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            onChange={(value) => onChange({ ...data, title: value })}
+            replacements={mathReplacements}
+            inputType="input"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
           />
         </div>
 
@@ -68,13 +70,14 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
           >
             Enunciado del Problema
           </label>
-          <textarea
-            id="texto"
+          <VoiceInput
             value={data.texto}
-            onChange={(e) => onChange({ ...data, texto: e.target.value })}
-            rows={6}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-mono"
-            placeholder="You can use HTML tags for formatting"
+            onChange={(value) => onChange({ ...data, texto: value })}
+            replacements={mathReplacements}
+            inputType="textarea"
+            rows={5}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+            placeholder="Puedes usar HTML para dar formato al texto"
           />
         </div>
       </div>
@@ -87,7 +90,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
             className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <Plus className="h-4 w-4 mr-1.5" />
-            Añadir Incisos
+            Añadir Inciso
           </button>
         </div>
 
@@ -109,13 +112,12 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
               <label className="block text-sm font-medium text-gray-700">
                 Pregunta
               </label>
-              <textarea
+              <VoiceInput
                 value={inciso.exercise}
-                onChange={(e) =>
-                  updateInciso(index, "exercise", e.target.value)
-                }
-                rows={2}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                onChange={(value) => updateInciso(index, "exercise", value)}
+                replacements={mathReplacements}
+                inputType="input"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
               />
             </div>
 
@@ -123,11 +125,12 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
               <label className="block text-sm font-medium text-gray-700">
                 Respuesta
               </label>
-              <input
-                type="text"
+              <VoiceInput
                 value={inciso.answer}
-                onChange={(e) => updateInciso(index, "answer", e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                onChange={(value) => updateInciso(index, "answer", value)}
+                replacements={mathReplacements}
+                inputType="input"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
               />
             </div>
           </div>

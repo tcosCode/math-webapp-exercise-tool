@@ -1,4 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
+import VoiceInput from "./VoiceInput";
+import { mathReplacements } from "../utils/replacements";
 import {
   FillBlankData,
   FillBlankInciso,
@@ -197,35 +199,30 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
     <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
       <div className="space-y-4">
         <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label className="block text-sm font-medium text-gray-700">
             Título
           </label>
-          <input
-            type="text"
-            id="title"
+          <VoiceInput
+            inputType="input"
             value={data.title}
-            onChange={(e) => onChange({ ...data, title: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            onChange={(value) => onChange({ ...data, title: value })}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+            replacements={mathReplacements}
           />
         </div>
 
         <div>
-          <label
-            htmlFor="texto"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label className="block text-sm font-medium text-gray-700">
             Enunciado del Ejercicio
           </label>
-          <textarea
-            id="texto"
+          <VoiceInput
+            inputType="textarea"
             value={data.texto}
-            onChange={(e) => onChange({ ...data, texto: e.target.value })}
-            rows={6}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm font-mono"
-            placeholder="Puedes usar HTML para dar formato al texto."
+            onChange={(value) => onChange({ ...data, texto: value })}
+            rows={5}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+            placeholder="Puedes usar HTML para dar formato al texto"
+            replacements={mathReplacements}
           />
         </div>
       </div>
@@ -276,7 +273,7 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
                   >
                     {part.startsWith("blank") ? (
                       <>
-                        <div className="flex-1 px-3 py-2 bg-gray-100 rounded-md text-gray-600 font-mono">
+                        <div className="flex-1 px-3 py-2 bg-gray-100 rounded-md text-gray-600">
                           {part}
                         </div>
                         <button
@@ -289,18 +286,15 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
                         </button>
                       </>
                     ) : (
-                      <input
-                        type="text"
+                      <VoiceInput
+                        inputType="input"
                         value={part}
-                        onChange={(e) =>
-                          updateSentencePart(
-                            incisoIndex,
-                            partIndex,
-                            e.target.value
-                          )
+                        onChange={(value) =>
+                          updateSentencePart(incisoIndex, partIndex, value)
                         }
-                        className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="flex-1 rounded-md border-gray-300 shadow-sm sm:text-sm"
                         placeholder="Escribe el Texto aquí"
+                        replacements={mathReplacements}
                       />
                     )}
                   </div>
@@ -322,19 +316,15 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
               </div>
               {inciso.options.map((option, optionIndex) => (
                 <div key={option.id} className="flex gap-2">
-                  <input
-                    type="text"
+                  <VoiceInput
+                    inputType="input"
                     value={option.text}
-                    onChange={(e) =>
-                      updateOption(
-                        incisoIndex,
-                        optionIndex,
-                        "text",
-                        e.target.value
-                      )
+                    onChange={(value) =>
+                      updateOption(incisoIndex, optionIndex, "text", value)
                     }
-                    className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="flex-1 rounded-md border-gray-300 shadow-sm sm:text-sm"
                     placeholder="Texto de la Respuesta"
+                    replacements={mathReplacements}
                   />
                   <select
                     value={option.position}
@@ -346,7 +336,7 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
                         e.target.value
                       )
                     }
-                    className="w-32 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="w-32 rounded-md border-gray-300 shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors sm:text-sm font-mono"
                   >
                     {getAvailableBlanks(inciso).map(({ value, label }) => (
                       <option key={value} value={value}>
@@ -356,7 +346,7 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
                   </select>
                   <button
                     onClick={() => removeOption(incisoIndex, optionIndex)}
-                    className="text-gray-400 hover:text-red-500"
+                    className="text-gray-400 hover:text-red-500 font-mono"
                   >
                     <Trash2 className="h-5 w-5" />
                   </button>
