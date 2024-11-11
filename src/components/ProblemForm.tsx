@@ -55,6 +55,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
             Título
           </label>
           <VoiceInput
+            id={`title-${data.id}`}
             value={data.title}
             onChange={(value) => onChange({ ...data, title: value })}
             replacements={mathReplacements}
@@ -71,6 +72,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
             Enunciado del Problema
           </label>
           <VoiceInput
+            id={`enunciado-${data.id}`}
             value={data.texto}
             onChange={(value) => onChange({ ...data, texto: value })}
             replacements={mathReplacements}
@@ -113,6 +115,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
                 Pregunta
               </label>
               <VoiceInput
+                id={`exercise-${data.id}-${inciso.id}`}
                 value={inciso.exercise}
                 onChange={(value) => updateInciso(index, "exercise", value)}
                 replacements={mathReplacements}
@@ -126,6 +129,7 @@ function ProblemForm({ data, onChange }: ProblemFormProps) {
                 Respuesta
               </label>
               <VoiceInput
+                id={`answer-${data.id}-${inciso.id}`}
                 value={inciso.answer}
                 onChange={(value) => updateInciso(index, "answer", value)}
                 replacements={mathReplacements}

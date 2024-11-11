@@ -94,6 +94,7 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
             Título
           </label>
           <VoiceInput
+            id={`title-${data.id}`}
             inputType="input"
             value={data.title}
             onChange={(value) => onChange({ ...data, title: value })}
@@ -107,6 +108,7 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
             Enunciado del Ejercicio
           </label>
           <VoiceInput
+            id={`enunciado-${data.id}`}
             inputType="textarea"
             value={data.texto}
             onChange={(value) => onChange({ ...data, texto: value })}
@@ -162,6 +164,7 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
                   Pregunta
                 </label>
                 <VoiceInput
+                  id={`exercise-${data.id}-${question.pairId}`}
                   inputType="textarea"
                   value={getInputValue(question.text)}
                   onChange={(value) =>
@@ -179,6 +182,7 @@ function MatchingForm({ data, onChange }: MatchingFormProps) {
                 Respuesta
               </label>
               <VoiceInput
+                id={`answer-${data.id}-${answer.pairId}`}
                 inputType="textarea"
                 value={getInputValue(answer.text)}
                 onChange={(value) =>
