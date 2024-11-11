@@ -3,6 +3,7 @@ interface VoiceInputProps {
   onChange: (value: string) => void;
   placeholder?: string;
   className?: string;
+  replacements?: ReplacementRule[];
 }
 
 interface SpeechRecognitionAlternative {

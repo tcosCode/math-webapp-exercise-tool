@@ -1,4 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
+import VoiceInput from "./VoiceInput";
+import { mathReplacements } from "../utils/replacements";
 import { TrueFalseData } from "../types/json-types";
 
 interface TrueFalseFormProps {
@@ -42,34 +44,30 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
     <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
       <div className="space-y-4">
         <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label className="block text-sm font-medium text-gray-700">
             Título
           </label>
-          <input
-            type="text"
-            id="title"
+          <VoiceInput
+            inputType="input"
             value={data.title}
-            onChange={(e) => onChange({ ...data, title: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            onChange={(value) => onChange({ ...data, title: value })}
+            replacements={mathReplacements}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
           />
         </div>
 
         <div>
-          <label
-            htmlFor="texto"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label className="block text-sm font-medium text-gray-700">
             Enunciado del Ejercicio
           </label>
-          <input
-            type="text"
-            id="texto"
+          <VoiceInput
+            inputType="textarea"
             value={data.texto}
-            onChange={(e) => onChange({ ...data, texto: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            onChange={(value) => onChange({ ...data, texto: value })}
+            replacements={mathReplacements}
+            rows={5}
+            placeholder="Puedes usar HTML para dar formato al texto"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
           />
         </div>
       </div>
@@ -104,13 +102,12 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
               <label className="block text-sm font-medium text-gray-700">
                 Texto del inciso
               </label>
-              <textarea
+              <VoiceInput
+                inputType="textarea"
                 value={inciso.exercise}
-                onChange={(e) =>
-                  updateInciso(index, "exercise", e.target.value)
-                }
-                rows={2}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                onChange={(value) => updateInciso(index, "exercise", value)}
+                replacements={mathReplacements}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
               />
             </div>
 
@@ -123,7 +120,7 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
                 onChange={(e) =>
                   updateInciso(index, "validation", e.target.value)
                 }
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 py-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors sm:text-sm font-mono"
               >
                 <option value="true">Verdadero</option>
                 <option value="false">Falso</option>

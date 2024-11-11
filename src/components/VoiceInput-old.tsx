@@ -1,17 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { Mic, MicOff } from "lucide-react";
-import { ReplacementRule, applyReplacements } from "../utils/replacements";
-import TextInputCustom from "./TextInputCustom";
-import TextAreaCustom from "./TextAreaCustom";
 
 interface VoiceInputProps {
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   className?: string;
-  replacements?: ReplacementRule[];
-  inputType?: "input" | "textarea";
-  rows?: number;
 }
 
 const createRecognition = () => {
@@ -32,15 +26,13 @@ export default function VoiceInput({
   onChange,
   placeholder,
   className,
-  replacements = [],
-  inputType,
-  rows,
 }: VoiceInputProps) {
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout>();
   const mediaStreamRef = useRef<MediaStream | null>(null);
 
+  // Initialize recognition instance once
   useEffect(() => {
     recognitionRef.current = createRecognition();
     return () => {
@@ -50,6 +42,7 @@ export default function VoiceInput({
       if (recognitionRef.current && isListening) {
         recognitionRef.current.stop();
       }
+      // Ensure we clean up the media stream on unmount
       if (mediaStreamRef.current) {
         stopMediaTracks();
       }
@@ -65,6 +58,7 @@ export default function VoiceInput({
     }
   };
 
+  // Set up event listeners separately
   useEffect(() => {
     const recognition = recognitionRef.current;
     if (!recognition) return;
@@ -77,9 +71,7 @@ export default function VoiceInput({
         }
       }
       if (finalTranscript) {
-        // Apply replacements to the new text before adding it
-        const processedText = applyReplacements(finalTranscript, replacements);
-        onChange(value + " " + processedText.trim());
+        onChange(value + " " + finalTranscript.trim());
       }
     };
 
@@ -128,10 +120,11 @@ export default function VoiceInput({
       recognition.removeEventListener("speechend", handleSpeechEnd);
       recognition.removeEventListener("end", handleEnd);
     };
-  }, [onChange, value, replacements]);
+  }, [onChange, value]);
 
   const startListening = async () => {
     try {
+      // Get media stream and store it
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaStreamRef.current = stream;
 
@@ -141,7 +134,7 @@ export default function VoiceInput({
       }
     } catch (error) {
       console.error("Error accessing microphone:", error);
-      alert("Por favor, permite el acceso al micrófono.");
+      alert("Please allow microphone access to use voice input.");
     }
   };
 
@@ -171,24 +164,13 @@ export default function VoiceInput({
 
   return (
     <div className="relative">
-      {inputType === "input" ? (
-        <TextInputCustom
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          replacements={replacements}
-          className={className}
-        />
-      ) : (
-        <TextAreaCustom
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          replacements={replacements}
-          className={className}
-          rows={rows}
-        />
-      )}
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className={`${className} pr-10`}
+      />
       <button
         type="button"
         onClick={toggleListening}

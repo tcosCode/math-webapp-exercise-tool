@@ -1,4 +1,6 @@
 import { Plus, Trash2 } from "lucide-react";
+import VoiceInput from "./VoiceInput";
+import { mathReplacements } from "../utils/replacements";
 import {
   ChooseAnswerData,
   ChooseAnswerInciso,
@@ -76,12 +78,12 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
           >
             Título
           </label>
-          <input
-            type="text"
-            id="title"
+          <VoiceInput
+            inputType="input"
             value={data.title}
-            onChange={(e) => onChange({ ...data, title: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            onChange={(value) => onChange({ ...data, title: value })}
+            replacements={mathReplacements}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
           />
         </div>
 
@@ -92,12 +94,14 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
           >
             Enunciado del Ejercicio
           </label>
-          <input
-            type="text"
-            id="texto"
+          <VoiceInput
+            inputType="textarea"
             value={data.texto}
-            onChange={(e) => onChange({ ...data, texto: e.target.value })}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            onChange={(value) => onChange({ ...data, texto: value })}
+            replacements={mathReplacements}
+            rows={5}
+            placeholder="Puedes usar HTML para dar formato al texto"
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
           />
         </div>
       </div>
@@ -132,34 +136,32 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
               <label className="block text-sm font-medium text-gray-700">
                 Pregunta
               </label>
-              <textarea
+              <VoiceInput
+                inputType="textarea"
                 value={inciso.exercise}
-                onChange={(e) =>
-                  updateInciso(incisoIndex, "exercise", e.target.value)
+                onChange={(value) =>
+                  updateInciso(incisoIndex, "exercise", value)
                 }
-                rows={2}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                rows={3}
+                replacements={mathReplacements}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
               />
             </div>
 
             <div className="space-y-3">
               <label className="block text-sm font-medium text-gray-700">
-                Respuestas
+                Respuestas:
               </label>
               {inciso.answer.map((option, optionIndex) => (
                 <div key={optionIndex} className="flex gap-2">
-                  <input
-                    type="text"
+                  <VoiceInput
+                    inputType="input"
                     value={option.text}
-                    onChange={(e) =>
-                      updateAnswer(
-                        incisoIndex,
-                        optionIndex,
-                        "text",
-                        e.target.value
-                      )
+                    onChange={(value) =>
+                      updateAnswer(incisoIndex, optionIndex, "text", value)
                     }
-                    className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    replacements={mathReplacements}
+                    className="flex-1 rounded-md border-gray-300 shadow-sm sm:text-sm"
                     placeholder={`Option ${optionIndex + 1}`}
                   />
                   <select
@@ -172,7 +174,7 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
                         e.target.value
                       )
                     }
-                    className="w-32 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    className="w-32 rounded-md border-gray-300 shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors sm:text-sm font-mono"
                   >
                     <option value="correct">Correcta</option>
                     <option value="incorrect">Incorrecta</option>
