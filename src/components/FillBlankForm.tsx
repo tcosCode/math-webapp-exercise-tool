@@ -199,10 +199,14 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
     <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor={`title-${data.id}`}
+            className="block text-sm font-medium text-gray-700"
+          >
             Título
           </label>
           <VoiceInput
+            id={`title-${data.id}`}
             inputType="input"
             value={data.title}
             onChange={(value) => onChange({ ...data, title: value })}
@@ -216,6 +220,7 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
             Enunciado del Ejercicio
           </label>
           <VoiceInput
+            id={`enunciado-${data.id}`}
             inputType="textarea"
             value={data.texto}
             onChange={(value) => onChange({ ...data, texto: value })}
@@ -287,6 +292,7 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
                       </>
                     ) : (
                       <VoiceInput
+                        id={`sentence-${data.id}-${inciso.id}-${partIndex}`}
                         inputType="input"
                         value={part}
                         onChange={(value) =>
@@ -317,6 +323,7 @@ function FillBlankForm({ data, onChange }: FillBlankFormProps) {
               {inciso.options.map((option, optionIndex) => (
                 <div key={option.id} className="flex gap-2">
                   <VoiceInput
+                    id={`option-${data.id}-${inciso.id}-${optionIndex}`}
                     inputType="input"
                     value={option.text}
                     onChange={(value) =>

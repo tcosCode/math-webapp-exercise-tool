@@ -73,12 +73,13 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
       <div className="space-y-4">
         <div>
           <label
-            htmlFor="title"
+            htmlFor={`title-${data.id}`}
             className="block text-sm font-medium text-gray-700"
           >
             Título
           </label>
           <VoiceInput
+            id={`title-${data.id}`}
             inputType="input"
             value={data.title}
             onChange={(value) => onChange({ ...data, title: value })}
@@ -89,12 +90,13 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
 
         <div>
           <label
-            htmlFor="texto"
+            htmlFor={`enunciado-${data.id}`}
             className="block text-sm font-medium text-gray-700"
           >
             Enunciado del Ejercicio
           </label>
           <VoiceInput
+            id={`enunciado-${data.id}`}
             inputType="textarea"
             value={data.texto}
             onChange={(value) => onChange({ ...data, texto: value })}
@@ -133,10 +135,14 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label
+                htmlFor={`inciso-${inciso.id}`}
+                className="block text-sm font-medium text-gray-700"
+              >
                 Pregunta
               </label>
               <VoiceInput
+                id={`inciso-${inciso.id}`}
                 inputType="textarea"
                 value={inciso.exercise}
                 onChange={(value) =>
@@ -155,6 +161,7 @@ function ChooseAnswerForm({ data, onChange }: ChooseAnswerFormProps) {
               {inciso.answer.map((option, optionIndex) => (
                 <div key={optionIndex} className="flex gap-2">
                   <VoiceInput
+                    id={`option-${inciso.id}-${optionIndex}`}
                     inputType="input"
                     value={option.text}
                     onChange={(value) =>

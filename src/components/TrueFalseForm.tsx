@@ -48,6 +48,7 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
             Título
           </label>
           <VoiceInput
+            id={`title-${data.id}`}
             inputType="input"
             value={data.title}
             onChange={(value) => onChange({ ...data, title: value })}
@@ -61,6 +62,7 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
             Enunciado del Ejercicio
           </label>
           <VoiceInput
+            id={`enunciado-${data.id}`}
             inputType="textarea"
             value={data.texto}
             onChange={(value) => onChange({ ...data, texto: value })}
@@ -103,6 +105,7 @@ function TrueFalseForm({ data, onChange }: TrueFalseFormProps) {
                 Texto del inciso
               </label>
               <VoiceInput
+                id={`inciso-${inciso.id}`}
                 inputType="textarea"
                 value={inciso.exercise}
                 onChange={(value) => updateInciso(index, "exercise", value)}
