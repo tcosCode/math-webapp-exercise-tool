@@ -24,7 +24,7 @@ const TextAreaCustom: React.FC<TextAreaCustomProps> = (
         props.onChange(processedText);
       }}
       placeholder={props.placeholder}
-      className={`${props.className} pr-10 resize-none overflow-hidden border border-gray-300 px-4 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors font-mono`}
+      className={`${props.className} pr-10 resize-none overflow-hidden border border-gray-300 px-4 py-2 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors font-mono whitespace-pre-wrap break-words`}
       rows={props.rows ?? 3}
     />
   );
