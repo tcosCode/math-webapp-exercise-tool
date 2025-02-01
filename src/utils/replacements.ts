@@ -6,15 +6,15 @@ export interface ReplacementRule {
 export const mathReplacements: ReplacementRule[] = [
   { match: /mayor que/gi, replace: ">" },
   { match: /menor que/gi, replace: "<" },
-  { match: /mas|más/gi, replace: "+" },
-  { match: /menos/gi, replace: "-" },
-  { match: /multiplicado por|por/gi, replace: "*" },
-  { match: /entre/gi, replace: "/" },
+  /* { match: /mas|más/gi, replace: "+" }, */
+  /*  { match: /menos/gi, replace: "-" }, */
+  /*  { match: /multiplicado por|por/gi, replace: "*" },
+  { match: /entre/gi, replace: "/" }, */
   { match: /punto y coma/gi, replace: ";" },
   { match: /abrir paréntesis|abre paréntesis/gi, replace: "(" },
   { match: /cerrar paréntesis|cierra paréntesis/gi, replace: ")" },
-  { match: /igual a|igual/gi, replace: "=" },
-  { match: /elevado a/gi, replace: "<sup>" },
+  /* { match: /igual a|igual/gi, replace: "=" }, */
+  /*   { match: /elevado a/gi, replace: "<sup>" },
   { match: /cerrar potencia/gi, replace: "</sup>" },
   { match: /raíz cuadrada de|raíz de/gi, replace: "√" },
   { match: /sub índice/gi, replace: "subíndice" },
@@ -44,7 +44,7 @@ export const mathReplacements: ReplacementRule[] = [
   { match: /logaritmo natural/gi, replace: "ln" },
   { match: /logaritmo base 2/gi, replace: "log2" },
   { match: /logaritmo base 10/gi, replace: "log" },
-  { match: /logaritmo base e/gi, replace: "ln" },
+  { match: /logaritmo base e/gi, replace: "ln" }, */
 ];
 
 export const applyReplacements = (
